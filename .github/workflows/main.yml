@@ -12,3 +12,13 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: echo "Testing on Node ${{ matrix.node }}"
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: mkdir -p dist && echo "app v1" > dist/app.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-build
+          path: dist/
